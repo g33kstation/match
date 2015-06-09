@@ -1,11 +1,18 @@
 <h2>register.html</h2>
 {{ define "content" }}
 <form action="/" method="post" enctype="plain">
-  <input name="login" placeholder="Veuillez saisir votre login" autofocus />
-  <select name="gender">
-    <option value="f">Femme</option>
-    <option value="m">Homme</option>
-  </select>
+  <fieldset>
+    <legend>Group 1</legend>
+    <input type="text" name="fullName" placeholder="Nom complet" autofocus required /><br />
+    <input type="email" name="email" placeholder="vous@exemple.com" required /><br />
+    <label for="dateofbirth">Date de Naissance
+    <input type="date" name="dateOfBirth" id="dateofbirth" min="1994-01-01" max="2015-01-01" required /></label>
+    <br />
+    <label for="female">Femme
+    <input type="radio" value="F" name="gender" id="female" required /></label>
+    <label for="male">Homme
+    <input type="radio" value="M" name="gender" id="male" required /></label>
+  </fieldset>
   <input type="submit" value="Go! ☺:">
 </form>
 {{ end }}
