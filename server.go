@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -18,19 +19,21 @@ func init() {
 	tmpl["register"] = template.Must(template.ParseFiles("templates/register.html", "templates/base.html"))
 }
 
-type Page struct {
-	Title   string
-	Content string
-}
-
 func homePage(w http.ResponseWriter, r *http.Request) {
-	hm := Page{"Bienvenue", "Hello wrrrrld..."}
+	hm := Page{"Bienvenue", "contenu de la page qui provient sans doute d'une BDD"}
 	err := tmpl["home"].ExecuteTemplate(w, "base", hm)
 	if err != nil {
 		log.Fatal(err)
 	}
-	//fmt.Fprintf(w, "%#v", tmpl["home"])
+
+	r.ParseForm()                      // Traitement du contenu du formulaire
+	fmt.Fprintf(w, "<br />%v", r.Form) // <- On démarre l'insertion dans Neo4j à partir de là
 }
 
 func registrationPage(w http.ResponseWriter, r *http.Request) {
+	hm := Page{"Inscrivez vous", "Hello wrrrrld..."}
+	err := tmpl["register"].ExecuteTemplate(w, "base", hm)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
